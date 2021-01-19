@@ -1,0 +1,9 @@
+Ansible runs each task in parallel across all hosts.
+Ansible waits until all hosts have completed a task before moving to thenext task.
+Ansible runs the tasks in the order that you specify them.
+
+Ansible is push based: 
+you: make changes to a playbook
+you: run the playbook
+ansible: connect to hosts to execute the module, which changes the target hosts
+
