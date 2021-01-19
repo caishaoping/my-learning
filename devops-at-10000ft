@@ -1,0 +1,15 @@
+configuration management(CM) vs provisioning vs deployment
+
+1. CM: Per https://www.thoughtworks.com/insights/blog/why-configuration-management-and-provisioning-are-different: "Configuration management tools are used to repeatably
+and consistently manage the configuration of systems and the services that they provide entirely through code. Many of them achieve this in three ways: an intuitive
+command line interface, a lightweight and easily-readable domain-specific language (DSL) and a comprehensive REST-based API that lowers the barrier-to-entry for
+integrations with other tools. Chef, Ansible, Puppet and SaltStack are popular, open-source examples of these tools.
+CM used to be repeated tasks which are applied existing systems. You have to know what is current status of the system to apply new changes to get your target. 
+
+2. Provisioning: with tasks focusing on infrastructure, get computers or virtuals hosts to use and install needed libraries or services, etc. You care more about what
+your target is, while provisioning tools like terraform will help you to get to what you want, its state management part keeps current state of the system. 
+
+3. Deployment: the process of putting a new application or newer version of an application, onto a prepared application server. 
+
+
+
