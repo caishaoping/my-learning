@@ -1,0 +1,95 @@
+Terraform variations: 
+OSS: Local CLI opeartions HCK, workspace, variables, Runs, Resource graph, Providers, modules, public module Registry;
+
+TF Cloud Free:  Cloud opeartions,  all OSS features + Remote operations for collaborative Infrastructure as Code ( Remote state, VCS connection, Workspace management, Secure variable storage, Remote runs, and Private Module Registory + 1 concurrent run
+
+TF Cloud Team: operations in Cloud all TF Cloud free features + Team mangement + Sentinel Policy as code + Cost Estimation + 2 concurrent runs
+
+TF Cloud Business operations in Cloud: All TF cloud Team features + SSO + Audit logging + Self-host Agents  + Configuration Designer + SNOW integration + concurrent runs 
+
+TFE Self-hosted: All Business  except operations on Private
+
+Terraform Cloud vs Terraform Enterprise:
+TFE is private installation, for Org. with specific requirements for security, compliance and custom operations.
+TF cloud is multi-tenant SaaS platform, for small teams or org.. 
+Module registry: 
+Verified modules:  passed certification and compatibility testing by HashiCorp and maintained by trusted HashiCorp partners 
+Community modules: contributed by any user, but not validated by HashiCorp directly.
+
+
+which backends support multiple workspaces:  AzureRM, S3, Consul, COS, GCS, Kubernetes, Local, Manta, Postgres, Remote
+terraform cloud TBF
+easy to share state and access secret data
+access control for approving changes to infrastructure
+a private registry for sharing TF modules
+policy control for governing
+state versions
+Run history
+workspace
+terraform cloud workflow
+Use Git repo to save configuration and trigger via pull request/merge;
+CLI-driven workflow
+API-driven workflow
+
+
+terraform cloud private registry: 
+Modules from the private registry can be referenced using a registry source address of the form app.terraform.io/<ORGANIZATION-NAME>/terraform/<NAME>/<PROVIDER>
+
+terraform init vs terraform get
+terraform init:  what get does + initialize backends + install plugins
+terraform get: used to install/update modules after a new module to a configuration
+Known file/directory names
+terraform.tfstate and teffaform.tfstate.backup
+.terraform  directory which contains the modules and plugins. 
+*.tfvars: standalone tf variable files
+source argument in a module block, used by terraform (terraform init) to install other modules:
+Local paths
+Terraform registry
+GitHub, Bitbucket, Generic Git, mercurial repositories
+HTTP URLs
+S3 buckets
+GCS buckets
+Provisioners
+a last resort
+user-data passed to created object, like aws_instance, aws_lauch_template, etc
+Configuration management software vs  Hashicorp Packer
+local-exec vs remote-exec
+behavior:   when to define run after creation or before destroy; on_failure to deinine if raise error and stop or ignore and continue terraform apply
+Providers
+each resource in the configuration must be associated with one provider configuration
+provider configuration is global to an entire terraform configuration and can be shared across module boundaries
+provider configuration can be defined only in a root Terraform module
+provider configuration can only be removed after all its related resources are deleted.
+same provider can have different configurations,  for the case of multiple regions, via alias
+provider configurations are inherited by child modules, not provider source or version requirement, which are defined in modules' requirement_providers block
+providers argument can appear in a module block (providers map) or in a resource block (single string)
+proxy configuration blocks: needed when alias provider is defined, to glue calling module and child modules
+
+
+Terraform settings in terraform block: to define terraform behavior, only constant values can be used
+define backend
+required_version settings to specify which versions of Terraform can be used (terraform CLI) like 
+version = ">= 1.2.0, < 2.0.0"; when use child modules, each module can define its own
+version req. which has to be required for all modules in the tree.
+sepcify required_providers including manage the expected versions for the providers
+
+
+Variable Definition Precedence: TF loads variables in following order, later source will override earlier ones:
+Environment variables:  TF_VAR_name followed by the name of the variable, can only be string type variable.  export TF_VAR_region = "us-east-1"
+terraform.tfvars file
+terraform.tfvars.json file
+any *.auto.tfvars or *.auto.tfvars.json files
+any -var and  "-var-file" options on the command line, you can have more than one files defined, like terraform apply -var-file="secret.tfvars" -var-file="production.tfvars"
+
+
+How Version constraint works:   version =  ">= 1.2.0, < 2.0.0"
+ =:  equal
+!=: not equal   
+>, >=,<, <=: greater than, greater than or equal to, etc
+~>:  allow only rightmost version component to increase,  ~>1.1.4 will only allow 1.1.5, 1.1.10 etc but not 1.1.3. so called pessimistic constraint operator which only allows new patches, which restrict both major and minor version. 
+If Terraform doesn't have an acceptable version of a required plugin or module, it will attempt to download the newest version that meets the applicable constraints.
+terraform apply : output signs represent add/destroy/update resources/attributes
+"-/+" means destroy and then add, like  -/+ resource "aws_instance" "example" 
+"-" means destroy,  - hibernation = false -> null
+"+" means add, like + host_id = (known after apply)
+"~" means update in-place,  ~ ipv6_addresses = [] -> (known after apply)
