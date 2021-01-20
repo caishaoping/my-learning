@@ -7,3 +7,9 @@ you: make changes to a playbook
 you: run the playbook
 ansible: connect to hosts to execute the module, which changes the target hosts
 
+where is ansible.cfg file?  ansible looks for an ansible.cfg file in the following order:
+1. Specified by ANSIBLE_CONFIG environment variable
+2. ./ansible.cfg  current directory, the preferred location
+3. ~/ansible.cfg  home directory
+4. /etc/ansible/ansible.cfg
+
