@@ -21,6 +21,19 @@ X=19,N=8
 X=7,N=9
 63
 
+#test Tracing map:  function ord is to convert string to unicode:
+>>> from resolver import *
+>>> result = map(Trace()(ord),'The quick brown box')
+>>> next(result)
+Calling <built-in function ord>
+84
+>>> next(result)
+Calling <built-in function ord>
+104
+>>> next(result)
+Calling <built-in function ord>
+101
+
 
 
 
