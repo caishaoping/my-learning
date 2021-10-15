@@ -41,6 +41,7 @@ def tag(name,**kwargs):
 
 def maker(N):
     def action(X):
+        print('X={X},N={N}'.format(X=X,N=N))
         return X * N
     return action
 
