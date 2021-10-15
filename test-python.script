@@ -11,6 +11,17 @@
               4 LOAD_ATTR                0 (N)
               6 BINARY_MULTIPLY
               8 RETURN_VALUE
->>>
+>>> act = maker(8)
+
+>>> print(act(19))
+X=19,N=8
+152
+
+>>> maker(9)(7)
+X=7,N=9
+63
+
+
+
 
 
