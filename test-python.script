@@ -1,0 +1,16 @@
+>>> import dis
+>>> act = maker(4)
+>>> dis.dis(act)
+ 44           0 LOAD_FAST                0 (X)
+              2 LOAD_DEREF               0 (N)
+              4 BINARY_MULTIPLY
+              6 RETURN_VALUE
+>>> dis.dis(clsmaker.__call__)
+ 51           0 LOAD_FAST                1 (X)
+              2 LOAD_FAST                0 (self)
+              4 LOAD_ATTR                0 (N)
+              6 BINARY_MULTIPLY
+              8 RETURN_VALUE
+>>>
+
+
